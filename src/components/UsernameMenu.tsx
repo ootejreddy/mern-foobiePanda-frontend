@@ -35,7 +35,11 @@ const UsernameMenu = () => {
         <DropdownMenuItem className="py-4">
           <Button
             className="flex flex-1 font-bold bg-orange-500"
-            onClick={async () => await logout()}
+            onClick={async () =>
+              await logout({
+                logoutParams: { returnTo: window.location.origin },
+              })
+            }
           >
             Logout
           </Button>
