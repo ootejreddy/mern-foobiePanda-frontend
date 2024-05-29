@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { AppState, Auth0Provider } from "@auth0/auth0-react";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
 };
 
 const Auth0ProviderWithNavigate = ({ children }: Props) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const domain = import.meta.env.VITE_AUTH0_DOMAIN;
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
   //* for extra layer of security form Oauth
@@ -17,7 +18,7 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
   }
 
   const onRedirectCallback = (appState?: AppState) => {
-    navigate(appState?.returnTo || "/auth-callback");
+    <Navigate to={appState?.returnTo || "/auth-callback"} replace={true} />;
   };
 
   return (
@@ -26,7 +27,7 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
       clientId={clientId}
       authorizationParams={{
         audience,
-        redirect_uri: redirectUri,
+        redirect_uri: window.location.origin,
       }}
       onRedirectCallback={onRedirectCallback}
       useRefreshTokens={true}

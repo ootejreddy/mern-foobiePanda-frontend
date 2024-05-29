@@ -25,6 +25,14 @@ const UsernameMenu = () => {
       <DropdownMenuContent className="px-4 ml-20">
         <DropdownMenuItem className="py-4">
           <Link
+            to={"/manage-restaurant"}
+            className="font-bold hover:text-orange-500"
+          >
+            Manage Restaurant
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="py-4">
+          <Link
             to={"/user-profile"}
             className="font-bold hover:text-orange-500"
           >
