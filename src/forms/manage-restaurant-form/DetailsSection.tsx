@@ -64,7 +64,7 @@ const DetailsSection = () => {
         control={control}
         name="deliveryPrice"
         render={({ field }) => (
-          <FormItem className="max-w-[25%]">
+          <FormItem className="flex-1 md:max-w-[25%]">
             <FormLabel> Delivery Price ($)</FormLabel>
             <FormControl>
               <Input {...field} className="bg-white" placeholder="1.50" />
@@ -77,7 +77,7 @@ const DetailsSection = () => {
         control={control}
         name="estimatedDeliveryTime"
         render={({ field }) => (
-          <FormItem className="max-w-[25%]">
+          <FormItem className="flex-1 md:max-w-[25%]">
             <FormLabel> Estimated Delivery Time (minutes)</FormLabel>
             <FormControl>
               <Input {...field} className="bg-white" placeholder="30 mins" />
