@@ -35,6 +35,7 @@ const ImageSection = () => {
                       event.target.files ? event.target.files[0] : null
                     )
                   }
+                  value={undefined}
                 />
               </FormControl>
               <FormMessage />
