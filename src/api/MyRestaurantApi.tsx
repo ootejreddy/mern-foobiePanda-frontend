@@ -112,9 +112,9 @@ export const useGetMyRestaurant = () => {
     queryKey: ["fetchCurrentRestaurant"],
     queryFn: getMyRestaurantRequest,
   });
-  if (error) {
-    toast.error(error.toString());
-  }
+  // if (error) {
+  //   toast.error(error.toString());
+  // }
 
   return {
     myRestaurant,
