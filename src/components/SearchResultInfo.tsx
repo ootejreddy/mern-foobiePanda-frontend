@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -18,8 +17,6 @@ const SearchResultInfo = ({ total, city }: Props) => {
           Change Location
         </Link>
       </span>
-
-      <span>insert sort drop down here</span>
     </div>
   );
 };
