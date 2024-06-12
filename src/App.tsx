@@ -6,6 +6,7 @@ import UserProfilePage from "./pages/UserProfilePage";
 import ManageRestuarantPage from "./pages/ManageRestuarantPage";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import SearchPage from "./pages/SearchPage";
+import RestaurantDetailPage from "./pages/RestaurantDetailPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
     element: (
       <Layout showHero={false}>
         <SearchPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/detail/:restaurantId",
+    element: (
+      <Layout showHero={false}>
+        <RestaurantDetailPage />
       </Layout>
     ),
   },
