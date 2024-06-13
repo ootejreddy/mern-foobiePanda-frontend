@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Layout from "../src/layouts/Layout";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
@@ -57,6 +61,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Navigate to="/"></Navigate>,
   },
 ]);
 
