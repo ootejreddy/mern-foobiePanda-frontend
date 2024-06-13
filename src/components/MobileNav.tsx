@@ -1,4 +1,3 @@
-import { Separator } from "@radix-ui/react-separator";
 import {
   Sheet,
   SheetContent,
@@ -10,6 +9,7 @@ import { CircleUserRound, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import MobileNavLinks from "./MobileNavLinks";
+import { Separator } from "./ui/separator";
 const MobileNav = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   return (
