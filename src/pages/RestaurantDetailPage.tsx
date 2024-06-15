@@ -7,13 +7,20 @@ import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { useState } from "react";
 
 import { useParams } from "react-router-dom";
-import { Card } from "@/components/ui/card";
+import { Card, CardFooter } from "@/components/ui/card";
 import OrderSummary from "@/components/OrderSummary";
+import CheckoutButton from "@/components/CheckoutButton";
+import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
 
 const RestaurantDetailPage = () => {
   const { restaurantId } = useParams();
   const { restaurantResult, isLoading, error } = useGetRestaurant(restaurantId);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    const storageCartItems = sessionStorage.getItem(
+      `cartItems-${restaurantId}`
+    );
+    return storageCartItems ? JSON.parse(storageCartItems) : [];
+  });
 
   const addToCart = (menuItem: MenuItemType) => {
     setCartItems((prevCartItems) => {
@@ -42,6 +49,10 @@ const RestaurantDetailPage = () => {
           },
         ];
       }
+      sessionStorage.setItem(
+        `cartItems-${restaurantId}`,
+        JSON.stringify(updatedCartItems)
+      );
       return updatedCartItems;
     });
   };
@@ -54,6 +65,11 @@ const RestaurantDetailPage = () => {
       return updatedCartItems;
     });
   };
+
+  const onCheckout = (userFormData: UserFormData) => {
+    console.log("userFormData: ", userFormData);
+  };
+
   if (isLoading) {
     return <div>Getting Restaurant Details</div>;
   }
@@ -88,6 +104,12 @@ const RestaurantDetailPage = () => {
               cartItems={cartItems}
               removeFromCart={removeFromCart}
             />
+            <CardFooter>
+              <CheckoutButton
+                onCheckout={onCheckout}
+                disabled={cartItems.length === 0}
+              />
+            </CardFooter>
           </Card>
         </div>
       </div>
