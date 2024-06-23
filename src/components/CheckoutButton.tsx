@@ -10,9 +10,10 @@ import { useGetCurrentUser } from "@/api/MyUserApi";
 type Props = {
   onCheckout: (userFormData: UserFormData) => void;
   disabled: boolean;
+  isLoading: boolean;
 };
 
-const CheckoutButton = ({ onCheckout, disabled }: Props) => {
+const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
   const { currentUser, isLoading: isGetUserLoading } = useGetCurrentUser();
   const {
     isAuthenticated,
@@ -34,7 +35,7 @@ const CheckoutButton = ({ onCheckout, disabled }: Props) => {
       </Button>
     );
   }
-  if (isAuthLoading || !currentUser) {
+  if (isAuthLoading || !currentUser || isLoading) {
     return <LoadingButton />;
   }
   return (

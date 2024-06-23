@@ -11,10 +11,13 @@ import { Card, CardFooter } from "@/components/ui/card";
 import OrderSummary from "@/components/OrderSummary";
 import CheckoutButton from "@/components/CheckoutButton";
 import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
+import { useCreateCheckoutSession } from "@/api/OrderApi";
 
 const RestaurantDetailPage = () => {
   const { restaurantId } = useParams();
   const { restaurantResult, isLoading, error } = useGetRestaurant(restaurantId);
+  const { createCheckoutSession, isPending: isCheckoutLoading } =
+    useCreateCheckoutSession();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     const storageCartItems = sessionStorage.getItem(
       `cartItems-${restaurantId}`
@@ -66,8 +69,29 @@ const RestaurantDetailPage = () => {
     });
   };
 
-  const onCheckout = (userFormData: UserFormData) => {
+  const onCheckout = async (userFormData: UserFormData) => {
     console.log("userFormData: ", userFormData);
+    if (!restaurantResult) {
+      return;
+    }
+    const checkoutData = {
+      cartItems: cartItems.map((item) => ({
+        menuItemId: item._id,
+        name: item.name,
+        quantity: item.quantity.toString(),
+      })),
+      restaurantId: restaurantResult._id,
+      deliveryDetails: {
+        email: (userFormData.email as string) || "",
+        name: userFormData.name,
+        addressLine1: userFormData.addressLine1,
+        city: userFormData.city,
+        country: userFormData.country,
+      },
+    };
+    const data = await createCheckoutSession(checkoutData);
+    console.log("The checkout session data is: ", data);
+    window.location.href = data.url;
   };
 
   if (isLoading) {
@@ -108,6 +132,7 @@ const RestaurantDetailPage = () => {
               <CheckoutButton
                 onCheckout={onCheckout}
                 disabled={cartItems.length === 0}
+                isLoading={isCheckoutLoading}
               />
             </CardFooter>
           </Card>
