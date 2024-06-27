@@ -59,7 +59,7 @@ const AppRoutes = () => {
         }
       />
 
-      <Route path=":/*" element={<Navigate to="/"></Navigate>} />
+      <Route path="/*" element={<Navigate to="/"></Navigate>} />
     </Routes>
   );
 };

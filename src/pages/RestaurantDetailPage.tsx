@@ -12,10 +12,12 @@ import OrderSummary from "@/components/OrderSummary";
 import CheckoutButton from "@/components/CheckoutButton";
 import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
 import { useCreateCheckoutSession } from "@/api/OrderApi";
+import { useGetCurrentUser } from "@/api/MyUserApi";
 
 const RestaurantDetailPage = () => {
   const { restaurantId } = useParams();
   const { restaurantResult, isLoading, error } = useGetRestaurant(restaurantId);
+  const { currentUser, isLoading: isGetLoadingUser } = useGetCurrentUser();
   const { createCheckoutSession, isPending: isCheckoutLoading } =
     useCreateCheckoutSession();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
@@ -74,6 +76,9 @@ const RestaurantDetailPage = () => {
     if (!restaurantResult) {
       return;
     }
+    if (isGetLoadingUser) {
+      return <h1>Loading...</h1>;
+    }
     const checkoutData = {
       cartItems: cartItems.map((item) => ({
         menuItemId: item._id,
@@ -82,7 +87,7 @@ const RestaurantDetailPage = () => {
       })),
       restaurantId: restaurantResult._id,
       deliveryDetails: {
-        email: (userFormData.email as string) || "",
+        email: currentUser?.email as string,
         name: userFormData.name,
         addressLine1: userFormData.addressLine1,
         city: userFormData.city,
