@@ -1,3 +1,5 @@
+export type UserRole = "ADMIN" | "USER" | "DELIVERY";
+
 export type User = {
   _id: string;
   email: string;
@@ -5,6 +7,7 @@ export type User = {
   addressLine1: string;
   city: string;
   country: string;
+  role: UserRole;
 };
 
 export type MenuItemType = {
