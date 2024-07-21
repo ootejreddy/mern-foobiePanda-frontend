@@ -1,18 +1,18 @@
 import {
-  useCreateMyRestaurant,
+  // useCreateMyRestaurant,
   useGetMyRestaurant,
   useGetMyRestaurantOrders,
-  useUpdateMyRestaurant,
+  // useUpdateMyRestaurant,
 } from "@/api/MyRestaurantApi";
 import OrderItemCard from "@/components/OrderItemCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ManageRestaurantForm from "@/forms/manage-restaurant-form/ManageRestaurantForm";
+// import ManageRestaurantForm from "@/forms/manage-restaurant-form/ManageRestaurantForm";
 
 const ManageRestuarantPage = () => {
-  const { createRestaurant, isPending } = useCreateMyRestaurant();
+  // const { createRestaurant, isPending } = useCreateMyRestaurant();
   const { myRestaurant } = useGetMyRestaurant();
-  const { updateRestaurant, isPending: isUpdatePending } =
-    useUpdateMyRestaurant();
+  // const { updateRestaurant, isPending: isUpdatePending } =
+  //   useUpdateMyRestaurant();
 
   const { myRestaurantOrders, isLoading } = useGetMyRestaurantOrders();
 
@@ -27,7 +27,7 @@ const ManageRestuarantPage = () => {
     <Tabs defaultValue="orders">
       <TabsList>
         <TabsTrigger value="orders">Orders</TabsTrigger>
-        <TabsTrigger value="manage-restaurant">Manage Restaurant</TabsTrigger>
+        <TabsTrigger value="manage-restaurant">List Restaurants</TabsTrigger>
       </TabsList>
       <TabsContent
         value="orders"
@@ -44,11 +44,11 @@ const ManageRestuarantPage = () => {
         value="manage-restaurant"
         className="space-y-5 bg-gray-50 p-10 rounded-lg"
       >
-        <ManageRestaurantForm
+        {/* <ManageRestaurantForm
           myRestaurant={myRestaurant}
           onSave={isEditing ? updateRestaurant : createRestaurant}
           isLoading={isEditing ? isUpdatePending : isPending}
-        />
+        /> */}
       </TabsContent>
     </Tabs>
   );

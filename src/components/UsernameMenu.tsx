@@ -28,10 +28,10 @@ const UsernameMenu = () => {
         {currentUser?.role === "ADMIN" && (
           <DropdownMenuItem className="py-4">
             <Link
-              to={"/manage-restaurant"}
+              to={"/getAllRestaurants"}
               className="font-bold hover:text-orange-500"
             >
-              Manage Restaurant
+              Manage Restaurants
             </Link>
           </DropdownMenuItem>
         )}
