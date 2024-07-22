@@ -2,10 +2,14 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Separator } from "./ui/separator";
+import { useGetCurrentUser } from "@/api/MyUserApi";
 
 const MobileNavLinks = () => {
   const { logout } = useAuth0();
-
+  const { currentUser, isLoading: isLoadingUser } = useGetCurrentUser();
+  if (isLoadingUser) {
+    return <h1>Loading...</h1>;
+  }
   return (
     <>
       <Link
@@ -14,12 +18,15 @@ const MobileNavLinks = () => {
       >
         Order Status
       </Link>
-      <Link
-        to="/manage-restaurant"
-        className="flex bg-white items-center font-bold hover:text-orange-500"
-      >
-        My Restaurant
-      </Link>
+      {currentUser?.role === "ADMIN" && (
+        <Link
+          to="/getAllRestaurants"
+          className="flex bg-white items-center font-bold hover:text-orange-500"
+        >
+          Manage Restaurants
+        </Link>
+      )}
+
       <Link
         to="/user-profile"
         className="flex bg-white items-center font-bold hover:text-orange-500"
