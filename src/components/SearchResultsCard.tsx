@@ -7,12 +7,17 @@ import { Banknote, Clock, Dot } from "lucide-react";
 type Props = {
   restaurant: Restaurant;
   key?: number;
+  role?: string;
 };
 
-const SearchResultsCard = ({ restaurant }: Props) => {
+const SearchResultsCard = ({ restaurant, role }: Props) => {
   return (
     <Link
-      to={`/detail/${restaurant._id}`}
+      to={
+        role === "ADMIN"
+          ? `/manage-restaurant/${restaurant._id}`
+          : `/detail/${restaurant._id}`
+      }
       className="grid  lg:grid-cols-[2fr_3fr] gap-7 group py-5 hover:shadow-md rounded-md shadow-transparent"
     >
       <AspectRatio ratio={10 / 6}>

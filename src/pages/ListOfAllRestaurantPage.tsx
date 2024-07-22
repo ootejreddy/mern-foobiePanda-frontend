@@ -1,3 +1,4 @@
+import { useGetCurrentUser } from "@/api/MyUserApi";
 import { useGetAllRestaurants } from "@/api/RestaurantApi";
 import PaginationSelector from "@/components/PaginationSelector";
 import SearchResultsCard from "@/components/SearchResultsCard";
@@ -6,6 +7,7 @@ export type RestaurantListState = {
   page: number;
 };
 export const ListOfAllRestaurantPage = () => {
+  const { currentUser, isLoading: isUserLoading } = useGetCurrentUser();
   const [page, setPage] = useState<RestaurantListState>({
     page: 0,
   });
@@ -16,10 +18,14 @@ export const ListOfAllRestaurantPage = () => {
       page,
     }));
   };
-  if (isLoading) {
+  if (isLoading || isUserLoading) {
     return <span>Loading ...</span>;
   }
-  if (!allRestaurantResults?.data || allRestaurantResults.data.length === 0) {
+  if (
+    !allRestaurantResults?.data ||
+    allRestaurantResults.data.length === 0 ||
+    !currentUser
+  ) {
     return <span>No results found</span>;
   }
 
@@ -29,6 +35,7 @@ export const ListOfAllRestaurantPage = () => {
         <SearchResultsCard
           key={index}
           restaurant={restaurant}
+          role={currentUser.role}
         ></SearchResultsCard>
       ))}
       <PaginationSelector

@@ -10,6 +10,7 @@ import RestaurantDetailPage from "./pages/RestaurantDetailPage";
 import OrderStatusPage from "./pages/OrderStatusPage";
 import AdminProtectedRoute from "./auth/AdminProtectedRoute";
 import { ListOfAllRestaurantPage } from "./pages/ListOfAllRestaurantPage";
+import CreateRestaurantPage from "./pages/CreateRestaurantPage";
 
 const AppRoutes = () => {
   return (
@@ -24,7 +25,7 @@ const AppRoutes = () => {
       />
       <Route element={<AdminProtectedRoute />}>
         <Route
-          path="/manage-restaurant"
+          path="/manage-restaurant/:restaurantId"
           element={
             <Layout>
               <ManageRestuarantPage />
@@ -36,6 +37,14 @@ const AppRoutes = () => {
           element={
             <Layout>
               <ListOfAllRestaurantPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/createRestaurant"
+          element={
+            <Layout>
+              <CreateRestaurantPage />
             </Layout>
           }
         />

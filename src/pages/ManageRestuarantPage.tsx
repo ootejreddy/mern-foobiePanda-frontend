@@ -1,33 +1,34 @@
 import {
-  // useCreateMyRestaurant,
-  useGetMyRestaurant,
   useGetMyRestaurantOrders,
-  // useUpdateMyRestaurant,
+  useUpdateMyRestaurant,
 } from "@/api/MyRestaurantApi";
+import { useGetRestaurant } from "@/api/RestaurantApi";
 import OrderItemCard from "@/components/OrderItemCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import ManageRestaurantForm from "@/forms/manage-restaurant-form/ManageRestaurantForm";
+import ManageRestaurantForm from "@/forms/manage-restaurant-form/ManageRestaurantForm";
+import { useParams } from "react-router-dom";
 
 const ManageRestuarantPage = () => {
+  const { restaurantId } = useParams();
   // const { createRestaurant, isPending } = useCreateMyRestaurant();
-  const { myRestaurant } = useGetMyRestaurant();
-  // const { updateRestaurant, isPending: isUpdatePending } =
-  //   useUpdateMyRestaurant();
+  const { restaurantResult, isLoading: isRestaurantLoading } =
+    useGetRestaurant(restaurantId);
+  const { updateRestaurant, isPending: isUpdatePending } =
+    useUpdateMyRestaurant();
 
   const { myRestaurantOrders, isLoading } = useGetMyRestaurantOrders();
 
-  if (isLoading) {
+  if (isLoading || isRestaurantLoading) {
     return <span>Loading ...</span>;
   }
-
-  const isEditing = !!myRestaurant;
-  console.log("isEditing is: ", isEditing);
 
   return (
     <Tabs defaultValue="orders">
       <TabsList>
         <TabsTrigger value="orders">Orders</TabsTrigger>
-        <TabsTrigger value="manage-restaurant">List Restaurants</TabsTrigger>
+        <TabsTrigger value="manage-restaurant">
+          Customize Restaurant
+        </TabsTrigger>
       </TabsList>
       <TabsContent
         value="orders"
@@ -44,11 +45,11 @@ const ManageRestuarantPage = () => {
         value="manage-restaurant"
         className="space-y-5 bg-gray-50 p-10 rounded-lg"
       >
-        {/* <ManageRestaurantForm
-          myRestaurant={myRestaurant}
-          onSave={isEditing ? updateRestaurant : createRestaurant}
-          isLoading={isEditing ? isUpdatePending : isPending}
-        /> */}
+        <ManageRestaurantForm
+          myRestaurant={restaurantResult}
+          onSave={updateRestaurant}
+          isLoading={isUpdatePending}
+        />
       </TabsContent>
     </Tabs>
   );

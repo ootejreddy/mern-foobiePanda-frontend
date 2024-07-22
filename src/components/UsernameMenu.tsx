@@ -35,7 +35,7 @@ const UsernameMenu = () => {
             </Link>
           </DropdownMenuItem>
         )}
-
+        <Separator></Separator>
         <DropdownMenuItem className="py-4">
           <Link
             to={"/user-profile"}
@@ -44,6 +44,17 @@ const UsernameMenu = () => {
             User Profile
           </Link>
         </DropdownMenuItem>
+        <Separator></Separator>
+        {currentUser?.role === "ADMIN" && (
+          <DropdownMenuItem className="py-4">
+            <Link
+              to={"/createRestaurant"}
+              className="font-bold hover:text-orange-500"
+            >
+              Create Restaurant
+            </Link>
+          </DropdownMenuItem>
+        )}
         <Separator></Separator>
         <DropdownMenuItem className="py-4">
           <Button
