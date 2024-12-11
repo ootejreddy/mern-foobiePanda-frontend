@@ -46,19 +46,22 @@ export const useCreateMyRestaurant = () => {
 };
 
 //*custom hook for updating myRestaurant
-export const useUpdateMyRestaurant = () => {
+export const useUpdateMyRestaurant = (restaurantId: string) => {
   const { getAccessTokenSilently } = useAuth0();
   const updateMyRestaurantRequest = async (
     restaurantFormData: FormData
   ): Promise<Restaurant> => {
     const accessToken = await getAccessTokenSilently();
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: restaurantFormData,
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/api/my/restaurant/${restaurantId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: restaurantFormData,
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to update restaurant");
     }
