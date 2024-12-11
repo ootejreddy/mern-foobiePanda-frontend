@@ -16,7 +16,9 @@ const ManageRestuarantPage = () => {
   const { updateRestaurant, isPending: isUpdatePending } =
     useUpdateMyRestaurant();
 
-  const { myRestaurantOrders, isLoading } = useGetMyRestaurantOrders();
+  const { myRestaurantOrders, isLoading } = useGetMyRestaurantOrders(
+    restaurantId || ""
+  );
 
   if (isLoading || isRestaurantLoading) {
     return <span>Loading ...</span>;

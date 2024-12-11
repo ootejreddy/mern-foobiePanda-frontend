@@ -174,17 +174,20 @@ export const useGetMyRestaurant = () => {
 };
 
 //* custom hook for getting myRestaurantOrders
-export const useGetMyRestaurantOrders = () => {
+export const useGetMyRestaurantOrders = (restaurantId: string) => {
   const { getAccessTokenSilently } = useAuth0();
   const getMyRestaurantOrdersRequest = async (): Promise<Order[]> => {
     const accessToken = await getAccessTokenSilently();
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant/order`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/api/my/restaurant/${restaurantId}/order`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch restaurant orders");
     }
@@ -203,6 +206,7 @@ export const useGetMyRestaurantOrders = () => {
   // if (error) {
   //   toast.error(error.toString());
   // }
+  console.log("The restaurant orders are: ", myRestaurantOrders);
 
   return {
     myRestaurantOrders,
