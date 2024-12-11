@@ -110,6 +110,7 @@ export const useGetCurrentUser = () => {
     if (!response.ok) {
       throw new Error("Failed to fetch user");
     }
+
     return response.json();
   };
 
@@ -124,6 +125,7 @@ export const useGetCurrentUser = () => {
   if (error) {
     toast.error(error.toString());
   }
+  console.log("The current user is: ", currentUser);
   return {
     currentUser,
     isLoading,

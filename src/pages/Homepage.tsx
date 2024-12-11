@@ -29,10 +29,10 @@ const Homepage = () => {
             Order takeway even faster! 🚀
           </span>
           <span className="">
-            Download the foobiePanda🐼 App for faster ordering and personalized
+            Use the foodOrder.com App for faster ordering and personalized
             recommendations
           </span>
-          <img src={appDownloadImage} alt="" />
+          {/* <img src={appDownloadImage} alt="" /> */}
         </div>
       </div>
     </div>

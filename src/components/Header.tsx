@@ -9,9 +9,9 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         <Link
           to="/"
-          className="font-bold text-3xl tracking-tight text-orange-500"
+          className="font-bold text-3xl tracking-tight text-blue-500"
         >
-          foobiePanda🐼.com
+          foodOrder 🥗.com
         </Link>
         <div className="md:hidden">
           <MobileNav></MobileNav>
