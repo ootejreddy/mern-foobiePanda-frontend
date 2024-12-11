@@ -1,11 +1,13 @@
 import { Order } from "@/types";
 import { Separator } from "./ui/separator";
+import { User } from "../types";
 
 type Props = {
   order: Order;
+  deliveryAgents: User[];
 };
 
-const OrderStatusDetail = ({ order }: Props) => {
+const OrderStatusDetail = ({ order, deliveryAgents }: Props) => {
   return (
     <div className="space-y-5">
       <div className="flex flex-col">
@@ -14,6 +16,18 @@ const OrderStatusDetail = ({ order }: Props) => {
         <span>{order.deliveryDetails.addressLine1}</span>
         <span>{order.deliveryDetails.city}</span>
       </div>
+
+      {/* {deliveryAgents.length > 0 && (
+        <>
+          <Separator />
+          <div className="flex flex-col">
+            <span className="font-bold">Delivering By:</span>
+            <span>{deliveryAgents[0].name}</span>
+            <span>{deliveryAgents[0].addressLine1}</span>
+          </div>
+        </>
+      )} */}
+
       <div className="flex flex-col ">
         <span className="font-bold">Your Order</span>
         <ul>

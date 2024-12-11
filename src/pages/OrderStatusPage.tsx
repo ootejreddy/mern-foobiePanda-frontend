@@ -1,3 +1,4 @@
+import useGetDeliveryAgents from "@/api/DeliveryAgentApi";
 import { useGetMyOrders } from "@/api/OrderApi";
 import OrderStatusDetail from "@/components/OrderStatusDetail";
 import OrderStatusHeader from "@/components/OrderStatusHeader";
@@ -5,7 +6,9 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export default function OrderStatusPage() {
   const { ordersResult, isLoading } = useGetMyOrders();
-  if (isLoading) {
+  const { deliveryAgents, isLoading: isDeliveryAgentsLoading } =
+    useGetDeliveryAgents();
+  if (isLoading || isDeliveryAgentsLoading) {
     return "Loading...";
   }
   if (!ordersResult || ordersResult.length === 0) {
@@ -17,7 +20,10 @@ export default function OrderStatusPage() {
         <div className="space-y-10 bg-gray-50 p-10 rounded-lg" key={index}>
           <OrderStatusHeader order={order} />
           <div className="grid gap-10 md:grid-cols-2">
-            <OrderStatusDetail order={order} />
+            <OrderStatusDetail
+              order={order}
+              deliveryAgents={deliveryAgents || []}
+            />
             <AspectRatio>
               <img
                 src={order.restaurant.imageUrl}
