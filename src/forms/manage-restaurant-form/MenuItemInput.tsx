@@ -50,6 +50,37 @@ const MenuItemInput = ({ index, removeMenuItem }: Props) => {
           </FormItem>
         )}
       />
+
+      <FormField
+        control={control}
+        name={`menuItems.${index}.calories`}
+        render={({ field }) => (
+          <FormItem>
+            Calories <FormMessage></FormMessage>
+            <FormLabel className="flex items-center gap-1" />
+            <FormControl>
+              <Input {...field} placeholder="180" className="bg-white"></Input>
+            </FormControl>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`menuItems.${index}.description`}
+        render={({ field }) => (
+          <FormItem>
+            Description <FormMessage></FormMessage>
+            <FormLabel className="flex items-center gap-1" />
+            <FormControl>
+              <Input
+                {...field}
+                placeholder="Chickem pizza with bbq chicken toppings"
+                className="bg-white"
+              ></Input>
+            </FormControl>
+          </FormItem>
+        )}
+      />
       <Button
         type="button"
         onClick={removeMenuItem}

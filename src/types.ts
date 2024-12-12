@@ -14,6 +14,8 @@ export type MenuItemType = {
   _id: string;
   name: string;
   price: number;
+  calories: string;
+  description: string;
 };
 
 export type Restaurant = {

@@ -38,6 +38,8 @@ const formSchema = z
       z.object({
         name: z.string().min(1, "name is required"),
         price: z.coerce.number().min(1, "price is required"),
+        calories: z.string().min(1, "Calories are required"),
+        description: z.string().min(1, "description is required"),
       })
     ),
     imageUrl: z.string().optional(),
@@ -108,6 +110,8 @@ const ManageRestaurantForm = ({ onSave, isLoading, myRestaurant }: Props) => {
         `menuItems[${index}][price]`,
         (menuItem.price * 100).toString()
       );
+      formData.append(`menuItems[${index}][calories]`, menuItem.calories);
+      formData.append(`menuItems[${index}][description]`, menuItem.description);
     });
 
     if (formDataJson.imageFile) {
