@@ -8,6 +8,7 @@ type Props = {
 };
 
 const OrderStatusDetail = ({ order, deliveryAgents }: Props) => {
+  console.log("Total Amount:", order.totalAmount, typeof order.totalAmount);
   return (
     <div className="space-y-5">
       <div className="flex flex-col">
@@ -41,7 +42,7 @@ const OrderStatusDetail = ({ order, deliveryAgents }: Props) => {
       <Separator />
       <div className="flex flex-col">
         <span className="font-bold">Total</span>
-        <span>${(order.totalAmount / 100).toFixed(2)}</span>
+        <span>${(Number(order.totalAmount) / 100 || 0).toFixed(2)}</span>
       </div>
     </div>
   );

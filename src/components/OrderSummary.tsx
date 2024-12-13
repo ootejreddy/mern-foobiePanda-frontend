@@ -4,6 +4,7 @@ import { CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { Trash } from "lucide-react";
+import { getTotalCost } from "@/utils/price-calculations";
 
 type Props = {
   restaurant: Restaurant;
@@ -12,21 +13,12 @@ type Props = {
 };
 
 const OrderSummary = ({ restaurant, cartItems, removeFromCart }: Props) => {
-  const getTotalCost = () => {
-    const totalInPence = cartItems.reduce(
-      (total, cartItem) => total + cartItem.price * cartItem.quantity,
-      0
-    );
-    const totalWithDelivery = totalInPence + restaurant.deliveryPrice;
-    return (totalWithDelivery / 100).toFixed(2);
-  };
-
   return (
     <>
       <CardHeader>
         <CardTitle className="text-2xl font-bold tracking-tight flex justify-between">
           <span>your order</span>
-          <span>${getTotalCost()}</span>
+          <span>${getTotalCost(cartItems, restaurant)}</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">

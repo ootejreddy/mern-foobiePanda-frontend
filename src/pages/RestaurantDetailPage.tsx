@@ -21,9 +21,10 @@ const RestaurantDetailPage = () => {
   const { createCheckoutSession, isPending: isCheckoutLoading } =
     useCreateCheckoutSession();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    const storageCartItems = sessionStorage.getItem(
-      `cartItems-${restaurantId}`
-    );
+    // const storageCartItems = sessionStorage.getItem(
+    //   `cartItems-${restaurantId}`
+    // );
+    const storageCartItems = localStorage.getItem(`cartItems-${restaurantId}`);
     return storageCartItems ? JSON.parse(storageCartItems) : [];
   });
 
@@ -55,6 +56,10 @@ const RestaurantDetailPage = () => {
         ];
       }
       sessionStorage.setItem(
+        `cartItems-${restaurantId}`,
+        JSON.stringify(updatedCartItems)
+      );
+      localStorage.setItem(
         `cartItems-${restaurantId}`,
         JSON.stringify(updatedCartItems)
       );
