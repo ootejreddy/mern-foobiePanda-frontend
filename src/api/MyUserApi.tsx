@@ -50,6 +50,8 @@ export type UpdateMyUserRequest = {
   addressLine1: string;
   city: string;
   country: string;
+  phoneNumber?: string;
+  dob?: string;
 };
 //* creating a custom hook for updation of user details
 export const useUpdateMyUser = () => {

@@ -18,6 +18,14 @@ import { useEffect } from "react";
 const formSchema = z.object({
   email: z.string().optional(),
   name: z.string().min(2, "name is required").max(50),
+  phoneNumber: z
+    .string()
+    .regex(
+      /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
+      "Invalid phone number format"
+    )
+    .optional(),
+  dob: z.string().optional(),
   addressLine1: z.string().min(2, "address Line 1 is required").max(100),
   city: z.string().min(2, "city is required").max(100),
   country: z.string().min(2, "country is required").max(100),
@@ -41,10 +49,20 @@ const UserProfileForm = ({
 
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: currentUser,
+    defaultValues: {
+      ...currentUser,
+      dob: currentUser.dob
+        ? new Date(currentUser.dob).toISOString().split("T")[0]
+        : undefined,
+    },
   });
   useEffect(() => {
-    form.reset(currentUser);
+    form.reset({
+      ...currentUser,
+      dob: currentUser.dob
+        ? new Date(currentUser.dob).toISOString().split("T")[0]
+        : undefined,
+    });
   }, [currentUser, form]);
   return (
     <Form {...form}>
@@ -84,6 +102,38 @@ const UserProfileForm = ({
             </FormItem>
           )}
         />
+        <div className="flex flex-col md:flex-row gap-4">
+          <FormField
+            control={form.control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Phone Number</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="(123) 456-7890"
+                    {...field}
+                    className="bg-white"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="dob"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Date of Birth</FormLabel>
+                <FormControl>
+                  <Input type="date" {...field} className="bg-white" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div className="flex flex-col md:flex-row gap-4">
           <FormField
             control={form.control}
